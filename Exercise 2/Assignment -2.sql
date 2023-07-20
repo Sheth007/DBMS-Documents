@@ -1,0 +1,99 @@
+CREATE TABLE EMPLOYEE
+(
+ empno Varchar2(8),
+ ename Varchar2(10),
+ job Varchar2(15),
+ mgrCode Number(8),
+ sal Number(8),
+ comm Number(7),
+ deptno Number(3)
+);
+
+INSERT INTO EMPLOYEE VALUES('E7369','SMITH','Clerk',7902,800,0,10);
+INSERT INTO EMPLOYEE VALUES('E7499','ALLEN','Salesman',7698,1600,300,20);
+INSERT INTO EMPLOYEE VALUES('E7521','WARD','Salesman',7698,1250,500,10);
+INSERT INTO EMPLOYEE VALUES('E7566','JONES','Manager',7839,2975,0,20);
+INSERT INTO EMPLOYEE VALUES('E7654','MARTIN','Salesman',7698,1250,1400,20);
+INSERT INTO EMPLOYEE VALUES('E7698','BLAKE','Manager',7839,2850,0,30);
+INSERT INTO EMPLOYEE VALUES('E7782','CLARK','Manager',7839,2450,0,10);
+INSERT INTO EMPLOYEE VALUES('E7788','SCOTT','Analyst',7566,3000,0,30);
+INSERT INTO EMPLOYEE VALUES('E7839','KING','President',0,5000,0,40);
+INSERT INTO EMPLOYEE VALUES('E7844','TURNER','Salesman',7698,NULL,0,40);
+INSERT INTO EMPLOYEE VALUES('E7902','FORD','Analyst',7566,3000,0,20);
+INSERT INTO EMPLOYEE VALUES('E7934','MILLER','Clerk',7782,NULL,0,20);
+
+CREATE TABLE DEPARTMENT
+(
+	depton number(4),
+	dname varchar2(15),
+	location varchar2(15)
+);
+
+INSERT INTO DEPARTMENT VALUES(10,'Accounting','Newyork');
+INSERT INTO DEPARTMENT VALUES(20,'Research','Dallas');
+INSERT INTO DEPARTMENT VALUES(30,'Sales','Chicago');
+INSERT INTO DEPARTMENT VALUES(40,'Operations','Boston');
+
+SELECT*FROM EMPLOYEE;
+
+SET PAGESIZE 50;
+
+//2.1
+
+//1.
+SELECT * FROM EMPLOYEE
+WHERE job='President';
+
+//2.
+SELECT * FROM EMPLOYEE
+WHERE job='Manager' or job='Clerk';
+
+//3.
+SELECT * from EMPLOYEE
+WHERE job='Manager' and deptno='10';
+
+//4.
+SELECT * FROM EMPLOYEE
+WHERE job!='Manager' and deptno not in(20,30,40);
+
+//5.
+SELECT * FROM EMPLOYEE
+WHERE job='Manager'and deptno='10' or job='Analyst';
+
+//6.
+SELECT * from EMPLOYEE
+WHERE job not in('President','Analyst','Salesman');
+
+//2.2
+
+//1.
+SELECT sal+100||' '||ename from EMPLOYEE
+WHERE job='Manager'; 
+
+//2.
+SELECT sal,(sal*2) AS cumulative_salary,ename from EMPLOYEE
+WHERE job='Manager';
+
+//3.
+SELECT * FROM EMPLOYEE
+WHERE JOB!='Manager';
+
+//4.
+SELECT * FROM EMPLOYEE
+WHERE ename LIKE'S%';
+
+//5.
+SELECT * FROM EMPLOYEE
+WHERE mgrCode in (7902,7566,7782);
+
+//6.
+SELECT * FROM EMPLOYEE
+WHERE job like 'M%' or ename='Jones';
+
+//7.
+SELECT * FROM EMPLOYEE
+WHERE sal is null;
+
+//8.
+SELECT dname FROM DEPARTMENT
+WHERE depton  BETWEEN 10 AND 30; 

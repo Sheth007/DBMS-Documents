@@ -1,0 +1,243 @@
+SQL> CREATE TABLE EMPLOYEE
+  2  (
+  3   empno Varchar2(8),
+  4   ename Varchar2(10),
+  5   job Varchar2(15),
+  6   mgrCode Number(8),
+  7   sal Number(8),
+  8   comm Number(7),
+  9   deptno Number(3)
+ 10  );
+
+Table created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7369','SMITH','Clerk',7902,800,0,10);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7499','ALLEN','Salesman',7698,1600,300,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7521','WARD','Salesman',7698,1250,500,10);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7566','JONES','Manager',7839,2975,0,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7654','MARTIN','Salesman',7698,1250,1400,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7698','BLAKE','Manager',7839,2850,0,30);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7782','CLARK','Manager',7839,2450,0,10);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7788','SCOTT','Analyst',7566,3000,0,30);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7839','KING','President',0,5000,0,40);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7844','TURNER','Salesman',7698,NULL,0,40);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7902','FORD','Analyst',7566,3000,0,20);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('E7934','MILLER','Clerk',7782,NULL,0,20);
+
+1 row created.
+
+SQL> CREATE TABLE DEPARTMENT
+  2  (
+  3  depton number(4),
+  4  dname varchar2(15),
+  5  location varchar2(15)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO DEPARTMENT VALUES(10,'Accounting','Newyork');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES(20,'Research','Dallas');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES(30,'Sales','Chicago');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTMENT VALUES(40,'Operations','Boston');
+
+1 row created.
+
+SQL> SELECT*FROM EMPLOYEE;
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7369    SMITH      Clerk                 7902        800          0         10 
+E7499    ALLEN      Salesman              7698       1600        300         20 
+E7521    WARD       Salesman              7698       1250        500         10 
+E7566    JONES      Manager               7839       2975          0         20 
+E7654    MARTIN     Salesman              7698       1250       1400         20 
+E7698    BLAKE      Manager               7839       2850          0         30 
+E7782    CLARK      Manager               7839       2450          0         10 
+E7788    SCOTT      Analyst               7566       3000          0         30 
+E7839    KING       President                0       5000          0         40 
+E7844    TURNER     Salesman              7698                     0         40 
+E7902    FORD       Analyst               7566       3000          0         20 
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7934    MILLER     Clerk                 7782                     0         20 
+
+12 rows selected.
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE job='President';
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7839    KING       President                0       5000          0         40 
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE job='Manager' or job='Clerk';
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7369    SMITH      Clerk                 7902        800          0         10 
+E7566    JONES      Manager               7839       2975          0         20 
+E7698    BLAKE      Manager               7839       2850          0         30 
+E7782    CLARK      Manager               7839       2450          0         10 
+E7934    MILLER     Clerk                 7782                     0         20 
+
+SQL> SELECT * from EMPLOYEE
+  2  WHERE job='Manager' and deptno='10';
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7782    CLARK      Manager               7839       2450          0         10 
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE job!='Manager' and deptno not in(20,30,40);
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7369    SMITH      Clerk                 7902        800          0         10 
+E7521    WARD       Salesman              7698       1250        500         10 
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE job='Manager'and deptno='10' or job='Analyst';
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7782    CLARK      Manager               7839       2450          0         10 
+E7788    SCOTT      Analyst               7566       3000          0         30 
+E7902    FORD       Analyst               7566       3000          0         20 
+
+SQL> SELECT * from EMPLOYEE
+  2  WHERE job not in('President','Analyst','Salesman');
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7369    SMITH      Clerk                 7902        800          0         10 
+E7566    JONES      Manager               7839       2975          0         20 
+E7698    BLAKE      Manager               7839       2850          0         30 
+E7782    CLARK      Manager               7839       2450          0         10 
+E7934    MILLER     Clerk                 7782                     0         20 
+
+SQL> SELECT sal+100||' '||ename from EMPLOYEE
+  2  WHERE job='Manager';
+
+SAL+100||''||ENAME                                                              
+---------------------------------------------------                             
+3075 JONES                                                                      
+2950 BLAKE                                                                      
+2550 CLARK                                                                      
+
+SQL> SELECT sal,(sal*2) AS cumulative_salary,ename from EMPLOYEE
+  2  WHERE job='Manager';
+
+       SAL CUMULATIVE_SALARY ENAME                                              
+---------- ----------------- ----------                                         
+      2975              5950 JONES                                              
+      2850              5700 BLAKE                                              
+      2450              4900 CLARK                                              
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE JOB!='Manager';
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7369    SMITH      Clerk                 7902        800          0         10 
+E7499    ALLEN      Salesman              7698       1600        300         20 
+E7521    WARD       Salesman              7698       1250        500         10 
+E7654    MARTIN     Salesman              7698       1250       1400         20 
+E7788    SCOTT      Analyst               7566       3000          0         30 
+E7839    KING       President                0       5000          0         40 
+E7844    TURNER     Salesman              7698                     0         40 
+E7902    FORD       Analyst               7566       3000          0         20 
+E7934    MILLER     Clerk                 7782                     0         20 
+
+9 rows selected.
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE ename LIKE'S%';
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7369    SMITH      Clerk                 7902        800          0         10 
+E7788    SCOTT      Analyst               7566       3000          0         30 
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE mgrCode in (7902,7566,7782);
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7369    SMITH      Clerk                 7902        800          0         10 
+E7788    SCOTT      Analyst               7566       3000          0         30 
+E7902    FORD       Analyst               7566       3000          0         20 
+E7934    MILLER     Clerk                 7782                     0         20 
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE job like 'M%' or ename='Jones';
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7566    JONES      Manager               7839       2975          0         20 
+E7698    BLAKE      Manager               7839       2850          0         30 
+E7782    CLARK      Manager               7839       2450          0         10 
+
+SQL> SELECT * FROM EMPLOYEE
+  2  WHERE sal is null;
+
+EMPNO    ENAME      JOB                MGRCODE        SAL       COMM     DEPTNO 
+-------- ---------- --------------- ---------- ---------- ---------- ---------- 
+E7844    TURNER     Salesman              7698                     0         40 
+E7934    MILLER     Clerk                 7782                     0         20 
+
+SQL> SELECT dname FROM DEPARTMENT
+  2  WHERE depton  BETWEEN 10 AND 30;
+
+DNAME                                                                           
+---------------                                                                 
+Accounting                                                                      
+Research                                                                        
+Sales                                                                           
+
+SQL> spool off;
+

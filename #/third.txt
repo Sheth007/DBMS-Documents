@@ -1,0 +1,212 @@
+SQL> CREATE TABLE Employee_Info
+  2  (
+  3      Emp_No NUMBER(3) NOT NULL UNIQUE,
+  4      Emp_Name varchar(12) NOT NULL,
+  5      City VARCHAR(15),
+  6      Designation varchar(15) NOT NULL,
+  7      Department VARCHAR(15),
+  8      Salary NUMBER(10),
+  9      Date_of_join Date
+ 10   );
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO Employee_Info values(101,'IVAN','Boston','Professor','Account',45000,'25-jul-2012');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(102,'PETER','Germany','progarammer','Computer',18000,'01-jan-2015');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(103,'JONES','Boston','Admin','Admin',34000,'05-mar-2017');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(104,'KELVIN','New York','Admin','Admin',32000,'18-feb-2010');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(105,'BLAKE','Boston','Professor','Computer',45000,'22-sep-2013');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(106,'MORIS','New Jersey','Professor','Account',25000,'26-jul-2012');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(107,'JEVIAR','Boston','progarammer','Computer',19500,'25-feb-2021');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(108,'NEVIL','New Jersey','Professor','Computer',41000,'18-sep-2018');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(109,'RONALD','Germany','Admin','Admin',24000,'22-apr-2013');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(110,'KOLKI','New Jersey','progarammer','Computer','14000',SYSDATE);
+
+1 row created.
+
+SQL> 
+SQL> DESC Employee_Info;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                    NOT NULL NUMBER(3)
+ EMP_NAME                                  NOT NULL VARCHAR2(12)
+ CITY                                               VARCHAR2(15)
+ DESIGNATION                               NOT NULL VARCHAR2(15)
+ DEPARTMENT                                         VARCHAR2(15)
+ SALARY                                             NUMBER(10)
+ DATE_OF_JOIN                                       DATE
+
+SQL> SELECT * FROM Employee_Info;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT              
+---------- ------------ --------------- --------------- ---------------         
+    SALARY DATE_OF_J                                                            
+---------- ---------                                                            
+       101 IVAN         Boston          Professor       Account                 
+     45000 25-JUL-12                                                            
+                                                                                
+       102 PETER        Germany         progarammer     Computer                
+     18000 01-JAN-15                                                            
+                                                                                
+       103 JONES        Boston          Admin           Admin                   
+     34000 05-MAR-17                                                            
+                                                                                
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT              
+---------- ------------ --------------- --------------- ---------------         
+    SALARY DATE_OF_J                                                            
+---------- ---------                                                            
+       104 KELVIN       New York        Admin           Admin                   
+     32000 18-FEB-10                                                            
+                                                                                
+       105 BLAKE        Boston          Professor       Computer                
+     45000 22-SEP-13                                                            
+                                                                                
+       106 MORIS        New Jersey      Professor       Account                 
+     25000 26-JUL-12                                                            
+                                                                                
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT              
+---------- ------------ --------------- --------------- ---------------         
+    SALARY DATE_OF_J                                                            
+---------- ---------                                                            
+       107 JEVIAR       Boston          progarammer     Computer                
+     19500 25-FEB-21                                                            
+                                                                                
+       108 NEVIL        New Jersey      Professor       Computer                
+     41000 18-SEP-18                                                            
+                                                                                
+       109 RONALD       Germany         Admin           Admin                   
+     24000 22-APR-13                                                            
+                                                                                
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT              
+---------- ------------ --------------- --------------- ---------------         
+    SALARY DATE_OF_J                                                            
+---------- ---------                                                            
+       110 KOLKI        New Jersey      progarammer     Computer                
+     14000 28-AUG-22                                                            
+                                                                                
+
+10 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update Employee_Info
+  2  set Salary = (Salary * 15)/100
+  3  where Department = 'Computer';
+
+5 rows updated.
+
+SQL> delete from Employee_Info
+  2  where city='Germany';
+
+2 rows deleted.
+
+SQL> Rollback;
+
+Rollback complete.
+
+SQL> update Employee_Info
+  2  set city = 'Chicago'
+  3  where city = 'New Jersey';
+
+3 rows updated.
+
+SQL> update Employee_Info
+  2  set Designation = 'Professor'
+  3  where Emp_No = 110;
+
+1 row updated.
+
+SQL> Alter table Employee_Info
+  2  add emp_bd date;
+
+Table altered.
+
+SQL> update Employee_Info
+  2  set emp_bd = SYSDATE
+  3  where emp_bd is null;
+
+10 rows updated.
+
+SQL> update Employee_Info
+  2  SET Emp_Name = 'JESKI'
+  3  where Emp_No = '107';
+
+1 row updated.
+
+SQL> SELECT (Salary - (Salary / 7))
+  2  from Employee_Info
+  3  where Emp_Name like '%R%';
+
+(SALARY-(SALARY/7))                                                             
+-------------------                                                             
+         15428.5714                                                             
+         21428.5714                                                             
+         20571.4286                                                             
+
+SQL> ALTER table Employee_Info
+  2  drop column Date_of_join;
+
+Table altered.
+
+SQL> ALTER table Employee_Info
+  2  MODIFY Emp_Name varchar(20);
+
+Table altered.
+
+SQL> delete from Employee_Info
+  2  where Designation = 'progarammer';
+
+2 rows deleted.
+
+SQL> ALTER table Employee_Info
+  2  drop column Designation;
+
+Table altered.
+
+SQL> ALTER table Employee_Info
+  2  rename to DUMMY;
+
+Table altered.
+
+SQL> delete from DUMMY;
+
+8 rows deleted.
+
+SQL> DROP table DUMMY;
+
+Table dropped.
+
+SQL> spool off;

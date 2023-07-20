@@ -1,0 +1,403 @@
+SQL> CREATE TABLE Employee_Info(
+  2      Emp_No NUMBER(3) NOT NULL UNIQUE,
+  3      Emp_Name varchar2(12) NOT NULL,
+  4      City VARCHAR2(15),
+  5      Designation varchar2(15) NOT NULL,
+  6      Department VARCHAR2(15),
+  7      Salary NUMBER(10),
+  8      Date_of_join Date
+  9   );
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO Employee_Info values(101,'IVAN','Boston','Professor','Account',45000,'25-jul-2012');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(102,'PETER','Germany','progarammer','Account',18000,'01-jan-2015');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(103,'JONES','Boston','Admin','Admin',34000,'05-mar-2017');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(104,'KELVIN','New York','Admin','Admin',32000,'18-feb-2010');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(105,'BLAKE','Boston','Professor','Computer',45000,'22-sep-2013');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(106,'MORIS','New Jersey','Professor','Account',25000,'26-jul-2012');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(107,'JEVIAR','Boston','progarammer','Computer',19500,'25-feb-2021');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(108,'NEVIL','New Jersey','Professor','Computer',41000,'18-sep-2018');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(109,'RONALD','Germany','Admin','Admin',24000,'22-apr-2013');
+
+1 row created.
+
+SQL> INSERT INTO Employee_Info values(110,'KOLKI','New Jersey','progarammer','Computer','14000',SYSDATE);
+
+1 row created.
+
+SQL> 
+SQL> SET LINESIZE 100;
+SQL> DESC Employee_Info;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ EMP_NO                                                NOT NULL NUMBER(3)
+ EMP_NAME                                              NOT NULL VARCHAR2(12)
+ CITY                                                           VARCHAR2(15)
+ DESIGNATION                                           NOT NULL VARCHAR2(15)
+ DEPARTMENT                                                     VARCHAR2(15)
+ SALARY                                                         NUMBER(10)
+ DATE_OF_JOIN                                                   DATE
+
+SQL> SELECT *
+  2  FROM Employee_Info;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       106 MORIS        New Jersey      Professor       Account              25000 26-JUL-12        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+
+10 rows selected.
+
+SQL> SELECT Emp_Name,Salary
+  2  FROM Employee_Info;
+
+EMP_NAME         SALARY                                                                             
+------------ ----------                                                                             
+IVAN              45000                                                                             
+PETER             18000                                                                             
+JONES             34000                                                                             
+KELVIN            32000                                                                             
+BLAKE             45000                                                                             
+MORIS             25000                                                                             
+JEVIAR            19500                                                                             
+NEVIL             41000                                                                             
+RONALD            24000                                                                             
+KOLKI             14000                                                                             
+
+10 rows selected.
+
+SQL> SELECT *
+  2  FROM Employee_Info
+  3  WHERE City='Boston';
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+
+SQL> SELECT *
+  2  FROM Employee_Info
+  3  WHERE Department='Computer';
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+
+SQL> SELECT *
+  2  FROM Employee_Info
+  3  WHERE Salary<25000;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+
+SQL> SELECT *
+  2  FROM Employee_Info
+  3  WHERE Department NOT LIKE 'Computer';
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       106 MORIS        New Jersey      Professor       Account              25000 26-JUL-12        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+
+6 rows selected.
+
+SQL> SELECT *
+  2  FROM Employee_Info
+  3  WHERE City='New Jersey';
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       106 MORIS        New Jersey      Professor       Account              25000 26-JUL-12        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+
+SQL> SELECT DISTINCT Department
+  2  FROM Employee_Info;
+
+DEPARTMENT                                                                                          
+---------------                                                                                     
+Account                                                                                             
+Admin                                                                                               
+Computer                                                                                            
+
+SQL> SELECT DISTINCT Designation
+  2  FROM Employee_Info;
+
+DESIGNATION                                                                                         
+---------------                                                                                     
+Professor                                                                                           
+progarammer                                                                                         
+Admin                                                                                               
+
+SQL> SELECT *
+  2  FROM Employee_Info
+  3  WHERE Emp_No=105;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+
+SQL> SELECT Emp_Name,Salary
+  2  FROM Employee_Info
+  3  WHERE Salary BETWEEN 15000 AND 30000;
+
+EMP_NAME         SALARY                                                                             
+------------ ----------                                                                             
+PETER             18000                                                                             
+MORIS             25000                                                                             
+JEVIAR            19500                                                                             
+RONALD            24000                                                                             
+
+SQL> SELECT *
+  2  FROM Employee_Info
+  3  WHERE Designation='Professor' AND Salary>40000;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+
+SQL> SELECT *
+  2  FROM Employee_Info
+  3  WHERE Department='Admin' OR City='Germany';
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+
+SQL> SELECT Emp_Name,Salary,((0.05*Salary)+Salary)
+  2  FROM Employee_Info;
+
+EMP_NAME         SALARY ((0.05*SALARY)+SALARY)                                                      
+------------ ---------- ----------------------                                                      
+IVAN              45000                  47250                                                      
+PETER             18000                  18900                                                      
+JONES             34000                  35700                                                      
+KELVIN            32000                  33600                                                      
+BLAKE             45000                  47250                                                      
+MORIS             25000                  26250                                                      
+JEVIAR            19500                  20475                                                      
+NEVIL             41000                  43050                                                      
+RONALD            24000                  25200                                                      
+KOLKI             14000                  14700                                                      
+
+10 rows selected.
+
+SQL> SELECT Emp_Name,Salary,(0.08*Salary)
+  2  FROM Employee_Info;
+
+EMP_NAME         SALARY (0.08*SALARY)                                                               
+------------ ---------- -------------                                                               
+IVAN              45000          3600                                                               
+PETER             18000          1440                                                               
+JONES             34000          2720                                                               
+KELVIN            32000          2560                                                               
+BLAKE             45000          3600                                                               
+MORIS             25000          2000                                                               
+JEVIAR            19500          1560                                                               
+NEVIL             41000          3280                                                               
+RONALD            24000          1920                                                               
+KOLKI             14000          1120                                                               
+
+10 rows selected.
+
+SQL> SELECT Emp_Name,(Salary-(0.12*Salary))
+  2  FROM Employee_Info;
+
+EMP_NAME     (SALARY-(0.12*SALARY))                                                                 
+------------ ----------------------                                                                 
+IVAN                          39600                                                                 
+PETER                         15840                                                                 
+JONES                         29920                                                                 
+KELVIN                        28160                                                                 
+BLAKE                         39600                                                                 
+MORIS                         22000                                                                 
+JEVIAR                        17160                                                                 
+NEVIL                         36080                                                                 
+RONALD                        21120                                                                 
+KOLKI                         12320                                                                 
+
+10 rows selected.
+
+SQL> SELECT *
+  2  FROM Employee_Info ORDER BY Emp_Name;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+       106 MORIS        New Jersey      Professor       Account              25000 26-JUL-12        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+
+10 rows selected.
+
+SQL> SELECT *
+  2  FROM Employee_Info ORDER BY Department;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       106 MORIS        New Jersey      Professor       Account              25000 26-JUL-12        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+
+10 rows selected.
+
+SQL> SELECT *
+  2  FROM Employee_Info ORDER BY Salary;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+       106 MORIS        New Jersey      Professor       Account              25000 26-JUL-12        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+
+10 rows selected.
+
+SQL> SELECT *
+  2  FROM Employee_Info WHERE Emp_Name LIKE 'K%';
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+
+SQL> SELECT *
+  2  FROM Employee_Info WHERE Emp_Name LIKE '%A%';
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+
+SQL> SELECT *
+  2  FROM Employee_Info WHERE City IN ('Boston','New York');
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+
+SQL> SELECT *
+  2  FROM Employee_Info WHERE Designation IN ('Professor','progarammer');
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       106 MORIS        New Jersey      Professor       Account              25000 26-JUL-12        
+       107 JEVIAR       Boston          progarammer     Computer             19500 25-FEB-21        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+       110 KOLKI        New Jersey      progarammer     Computer             14000 04-AUG-22        
+
+7 rows selected.
+
+SQL> SELECT *
+  2  FROM Employee_Info WHERE Salary BETWEEN 30000 AND 50000;
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+
+SQL> SELECT *
+  2  FROM Employee_Info WHERE Date_of_join BETWEEN '1-JAN-2010' AND '31-DEC-2018';
+
+    EMP_NO EMP_NAME     CITY            DESIGNATION     DEPARTMENT          SALARY DATE_OF_J        
+---------- ------------ --------------- --------------- --------------- ---------- ---------        
+       101 IVAN         Boston          Professor       Account              45000 25-JUL-12        
+       102 PETER        Germany         progarammer     Account              18000 01-JAN-15        
+       103 JONES        Boston          Admin           Admin                34000 05-MAR-17        
+       104 KELVIN       New York        Admin           Admin                32000 18-FEB-10        
+       105 BLAKE        Boston          Professor       Computer             45000 22-SEP-13        
+       106 MORIS        New Jersey      Professor       Account              25000 26-JUL-12        
+       108 NEVIL        New Jersey      Professor       Computer             41000 18-SEP-18        
+       109 RONALD       Germany         Admin           Admin                24000 22-APR-13        
+
+8 rows selected.
+
+SQL> SELECT *
+  2  FROM Employee_Info WHERE Department='COMMERRCE';
+
+no rows selected
+
+SQL> spool off;

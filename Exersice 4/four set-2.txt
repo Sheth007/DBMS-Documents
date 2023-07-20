@@ -1,0 +1,73 @@
+SQL> CREATE TABLE Programmer
+  2  (
+  3  Pid int Primary key,
+  4  Pname varchar(20),
+  5  DOB date default '01-JUN-1998',
+  6  Email varchar2(20) unique check(Email like ('%@%.%')),
+  7  Mobile int unique check(Mobile like ('__________')),
+  8  DOJ date,
+  9  Sex varchar2(20) check (Sex in ('M','F')),
+ 10  Proficiency varchar2(20) check (Proficiency in ('Android','Java','Oracle')),
+ 11  Sal int default 5000 check (Sal>3000)
+ 12  );
+
+Table created.
+
+SQL> CREATE TABLE Software
+  2  (
+  3  Sid int Primary key,
+  4  Pid int References Programmer(Pid),
+  5  title varchar2(20),
+  6  dev_in varchar2(20),
+  7  scost int check (scost>0),
+  8  dcost int check (dcost>0),
+  9  sold int
+ 10  );
+
+Table created.
+
+SQL> CREATE TABLE Studies
+  2  (
+  3  CourseID int Primary key,
+  4  CourseName varchar2(20),
+  5  SPlace varchar2(20),
+  6  ccost int check (ccost>0),
+  7  Pid int
+  8  );
+
+Table created.
+
+SQL> DESC Programmer;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(38)
+ PNAME                                              VARCHAR2(20)
+ DOB                                                DATE
+ EMAIL                                              VARCHAR2(20)
+ MOBILE                                             NUMBER(38)
+ DOJ                                                DATE
+ SEX                                                VARCHAR2(20)
+ PROFICIENCY                                        VARCHAR2(20)
+ SAL                                                NUMBER(38)
+
+SQL> DESC Software;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(38)
+ PID                                                NUMBER(38)
+ TITLE                                              VARCHAR2(20)
+ DEV_IN                                             VARCHAR2(20)
+ SCOST                                              NUMBER(38)
+ DCOST                                              NUMBER(38)
+ SOLD                                               NUMBER(38)
+
+SQL> DESC Studies;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSEID                                  NOT NULL NUMBER(38)
+ COURSENAME                                         VARCHAR2(20)
+ SPLACE                                             VARCHAR2(20)
+ CCOST                                              NUMBER(38)
+ PID                                                NUMBER(38)
+
+SQL> spool off;

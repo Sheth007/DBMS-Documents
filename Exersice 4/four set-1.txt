@@ -1,0 +1,38 @@
+SQL> CREATE TABLE Account
+  2  (
+  3  ac_no int primary key,
+  4  ac_name varchar2(20),
+  5  act_type varchar2(20) check (act_type in ('S','C'))
+  6  );
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE Transaction
+  2  (
+  3  ac_no int references Account(ac_no),
+  4  trans_date date,
+  5  trans_type varchar2(20) check (trans_type in ('D','W')),
+  6  trans_amount int check (trans_amount>0),
+  7  balance int
+  8  );
+
+Table created.
+
+SQL> DESC Account;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ AC_NO                                     NOT NULL NUMBER(38)
+ AC_NAME                                            VARCHAR2(20)
+ ACT_TYPE                                           VARCHAR2(20)
+
+SQL> DESC Transaction;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ AC_NO                                              NUMBER(38)
+ TRANS_DATE                                         DATE
+ TRAN_TYPE                                          VARCHAR2(20)
+ TRAN_AMOUNT                                        NUMBER(38)
+ BALANCE                                            NUMBER(38)
+
+SQL> spool off;
